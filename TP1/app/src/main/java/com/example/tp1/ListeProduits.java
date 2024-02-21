@@ -10,7 +10,7 @@ public class ListeProduits {
     {
         liste = new Hashtable();
         liste.put("Café filtre Petit",new Produit("Café","Petit",1.80 ,5 ) );
-        liste.put("Café filtre Moyen",new Produit("Café","Moyen",3 ,7 ));
+        liste.put("Café filtre Moyen",new Produit("Café","Moyen",3.00 ,7 ));
         liste.put("Café filtre Grand", new Produit("Café","Grand",3.96 ,10 ));
         liste.put("Americano Petit",new Produit("Americano","Petit",2.40 ,9 ));
         liste.put("Americano Moyen",new Produit("Americano","Moyen",4.00 ,11 ) );
@@ -23,11 +23,18 @@ public class ListeProduits {
         liste.put("Latté Grand",new Produit("Latté","Grand",10.00 ,250 ) );
     }
 
-    public Produit recupererProduit ( String cle)
-    {
-        Produit pvide = new Produit("","", 0,0);
-       return pvide ;
+
+    public Produit recupererProduit(String cle) {
+        Produit pvide = new Produit("", "", 0, 0);
+        Produit produit = liste.get(cle);
+
+        if (produit != null) {
+            return produit;
+        } else {
+            return pvide;
+        }
     }
+
 
 
 }
