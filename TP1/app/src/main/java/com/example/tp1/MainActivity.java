@@ -1,5 +1,6 @@
 package com.example.tp1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -36,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     TextView indicePrixCalorie, totalEtTaxes;
 
-    Button btnAjouter, btnEffacer;
+    Button btnAjouter, btnEffacer, btnCommander;
 
     Ecouteur ec;
 
-
-
+    AlertDialog.Builder commadeFini;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +52,20 @@ public class MainActivity extends AppCompatActivity {
         LinearSetup();
         RadioSetup();
 
+        commadeFini = new AlertDialog.Builder(this);
+
+        commadeFini.setTitle("Commande envoyée");
+        commadeFini.setMessage("Paiement de : 0$");
+
         indicePrixCalorie = findViewById(R.id.indicePrixCalorie);
         totalEtTaxes = findViewById(R.id.totalEtTaxes);
 
         btnAjouter = findViewById(R.id.btnAjouter);
+        btnCommander = findViewById(R.id.btnCommander);
         btnEffacer = findViewById(R.id.btnEffacer);
 
         btnAjouter.setOnClickListener(ec);
+        btnCommander.setOnClickListener(ec);
         btnEffacer.setOnClickListener(ec);
 
 
@@ -78,7 +85,29 @@ public class MainActivity extends AppCompatActivity {
             else if(event == btnAjouter){
                 ajoutCommande();
             }
+            else if(event == btnCommander){
+                Commander();
+            }
+            else if(event == btnEffacer){
+                Effacer();
+            }
         }
+    }
+
+    public void Effacer(){
+        commande.removeAllElements();
+        precommande = new Produit("","",0,0);
+        updateCommande();
+    }
+
+
+
+    public void Commander(){
+        AlertDialog alert = commadeFini.create();
+        alert.show();
+        commande.removeAllElements();
+        precommande = new Produit("","",0,0);
+        updateCommande();
     }
 
     public void ajoutCommande(){
@@ -130,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         String calorie = String.valueOf(precommande.calories);
         indicePrixCalorie.setText( nomComplet + " : " + calorie + " calorie et coûte : " + cout + " $");
 
+
     }
 
     public void updateCommande(){
@@ -140,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
         coutTotal = coutTotal*1.15;
         String formatted = String.format("%.2f", coutTotal);
         totalEtTaxes.setText("Total: " + formatted);
+
+        //on setup le message final de la commande aussi
+        commadeFini.setMessage("Paiement de : " + formatted + " $" );
 
         nouvelleImage();
     }
@@ -157,11 +190,33 @@ public class MainActivity extends AppCompatActivity {
         layoutParams.gravity= Gravity.CENTER;
 
         imageView.setLayoutParams(layoutParams);
-        imageView.setImageResource(R.drawable.latte);
+        //imageView.setImageResource(R.drawable.latte);
+        // Facon paresseuse de choisisr la bonne image ici
+        if(precommande.noms == "Café"){
+            imageView.setImageResource(R.drawable.cafe_filtre);
+        }
+        else if(precommande.noms == "Americano"){
+            imageView.setImageResource(R.drawable.americano);
+        }
+        else if(precommande.noms == "Café glacé") {
+            imageView.setImageResource(R.drawable.cafe_glace);
+        }
+        else if(precommande.noms == "Latté") {
+            imageView.setImageResource(R.drawable.latte);
+        }
+        else{
+            resetImage();
+        }
+
         imageView.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
         MiniImage.addView(imageView);
 
     }
+
+    public void resetImage(){
+        MiniImage.removeAllViews();
+    }
+
 
 
 
