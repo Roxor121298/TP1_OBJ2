@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <LinearLayout
@@ -167,32 +168,41 @@
         android:padding="8dp"
         android:background="#FFFFFFFF">
 
-        <RadioGroup
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/choixTaille"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            app:singleSelection="true"
+            android:gravity="center"
+            style="@style/StyleChip">
 
-            <RadioButton
-                android:id="@+id/radioButtonSmall"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Petit" />
+                app:checkedIconVisible="true"
+                android:text="Petit"
+                style="@style/StyleChip" />
 
-            <RadioButton
-                android:id="@+id/radioButtonMedium"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Moyen"
+                style="@style/StyleChip"
+                app:checkedIconVisible="true"
                 android:checked="true" />
 
-            <RadioButton
-                android:id="@+id/radioButtonLarge"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grand" />
-        </RadioGroup>
+                android:text="Grand"
+                app:checkedIconVisible="true"
+                style="@style/StyleChip"  />
+        </com.google.android.material.chip.ChipGroup>
+
 
         <TextView
             android:id="@+id/indicePrixCalorie"

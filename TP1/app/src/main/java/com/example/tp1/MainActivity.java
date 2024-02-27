@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -12,11 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout cafe_filtre, americano, cafe_glace, latte, MiniImage;
 
-    RadioGroup choixTaille;
+    ChipGroup choixTaille;
 
-    RadioButton radioButtonSmall,radioButtonMedium,radioButtonLarge;
+    Chip chipSmall, chipMedium, chipLarge;
 
     TextView indicePrixCalorie, totalEtTaxes;
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             if (event == cafe_filtre || event == americano || event == cafe_glace || event == latte) {
                 clickBoisson(event);
             }
-            else if(event == radioButtonSmall || event == radioButtonMedium || event == radioButtonLarge ){
+            else if(event == chipSmall || event == chipMedium || event == chipLarge){
                 clickTaille(event);
             }
             else if(event == btnAjouter){
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         commande.removeAllElements();
         precommande = new Produit("","",0,0);
         updateCommande();
+        choixTaille.clearCheck();
     }
 
 
@@ -136,15 +137,15 @@ public class MainActivity extends AppCompatActivity {
 
     public String getTaille(){
         String taille = "";
-        RadioGroup choixTaille = findViewById(R.id.choixTaille);
-        int selectedId = choixTaille.getCheckedRadioButtonId();
-        if (selectedId == R.id.radioButtonSmall) {
+        ChipGroup choixTaille = findViewById(R.id.choixTaille);
+        int selectedId = choixTaille.getCheckedChipId();
+        if (selectedId == R.id.chipSmall) {
             taille = " Petit";
         }
-        else if (selectedId == R.id.radioButtonMedium){
+        else if (selectedId == R.id.chipMedium){
             taille = " Moyen";
         }
-        else if (selectedId == R.id.radioButtonLarge){
+        else if (selectedId == R.id.chipLarge){
             taille = " Grand";
         }
         return taille;
@@ -237,13 +238,13 @@ public class MainActivity extends AppCompatActivity {
     public void RadioSetup() {
         choixTaille = findViewById(R.id.choixTaille);
 
-        radioButtonSmall = findViewById(R.id.radioButtonSmall);
-        radioButtonMedium = findViewById(R.id.radioButtonMedium);
-        radioButtonLarge = findViewById(R.id.radioButtonLarge);
+        chipSmall = findViewById(R.id.chipSmall);
+        chipMedium = findViewById(R.id.chipMedium);
+        chipLarge = findViewById(R.id.chipLarge);
 
-        radioButtonSmall.setOnClickListener(ec);
-        radioButtonMedium.setOnClickListener(ec);
-        radioButtonLarge.setOnClickListener(ec);
+        chipSmall.setOnClickListener(ec);
+        chipMedium.setOnClickListener(ec);
+        chipLarge.setOnClickListener(ec);
     }
 
 
