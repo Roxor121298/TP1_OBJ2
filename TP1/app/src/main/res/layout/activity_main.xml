@@ -161,94 +161,97 @@
 
     <LinearLayout
         android:id="@+id/Order"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:padding="8dp"
-        android:background="#FFFFFFFF">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:background="#FFFFFFFF"
+        android:orientation="vertical"
+        android:padding="8dp">
+
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/choixTaille"
-            android:layout_width="match_parent"
+            style="@style/StyleChip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:singleSelection="true"
             android:gravity="center"
-            style="@style/StyleChip">
+            android:orientation="horizontal"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipSmall"
+                style="@style/StyleChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:checkedIconVisible="true"
                 android:text="Petit"
-                style="@style/StyleChip" />
+                app:checkedIconVisible="true" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipMedium"
+                style="@style/StyleChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="Moyen"
-                style="@style/StyleChip"
-                app:checkedIconVisible="true"
-                android:checked="true" />
+                app:checkedIconVisible="true" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipLarge"
+                style="@style/StyleChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Grand"
-                app:checkedIconVisible="true"
-                style="@style/StyleChip"  />
+                app:checkedIconVisible="true" />
         </com.google.android.material.chip.ChipGroup>
-
 
         <TextView
             android:id="@+id/indicePrixCalorie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aucun Produit selectionné"
-            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
             android:gravity="left"
-            android:layout_marginBottom="8dp" />
+            android:text="Aucun Produit selectionné"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnAjouter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AJOUTER"
-            android:layout_marginBottom="8dp" />
+            <!-- android:enabled="false" -->
+            android:layout_marginBottom="8dp"
+            android:text="AJOUTER" />
 
         <LinearLayout
             android:id="@+id/MiniImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" />
 
 
         <TextView
             android:id="@+id/totalEtTaxes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total: 0,00$"
-            android:textSize="24sp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:text="Total: 0,00$"
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnEffacer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EFFACER"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                android:text="EFFACER" />
 
             <Button
                 android:id="@+id/btnCommander"
