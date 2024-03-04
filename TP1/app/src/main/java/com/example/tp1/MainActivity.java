@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListeProduits liste;
 
-    String nom, nomcomplet;
+    String nom;
 
     Produit precommande;
 
@@ -49,32 +49,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         liste = new ListeProduits();
         ec = new Ecouteur();
-        LinearSetup();
-        RadioSetup();
+        linearSetup();
+        chipSetup();
+        btnSetup();
 
         commadeFini = new AlertDialog.Builder(this);
-
         commadeFini.setTitle("Commande envoyée");
         commadeFini.setMessage("Paiement de : 0$");
-
         indicePrixCalorie = findViewById(R.id.indicePrixCalorie);
         totalEtTaxes = findViewById(R.id.totalEtTaxes);
 
-        btnAjouter = findViewById(R.id.btnAjouter);
-        btnCommander = findViewById(R.id.btnCommander);
-        btnEffacer = findViewById(R.id.btnEffacer);
-
-        btnAjouter.setOnClickListener(ec);
-        btnCommander.setOnClickListener(ec);
-        btnEffacer.setOnClickListener(ec);
 
 
+        // je set le bouton clearChecked a false ici
+        choixTaille.clearCheck();
 
     }
 
-    // "Ce produit contient : 5 calorie et coûte : 1,00$"
     private class Ecouteur implements View.OnClickListener {
-        @Override
+        @Override // On selectionne selon le nom quelle méthode il faut appeler
         public void onClick(View event) {
             if (event == cafe_filtre || event == americano || event == cafe_glace || event == latte) {
                 clickBoisson(event);
@@ -94,31 +87,49 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Si fianlement on ne veut pas commander les produti que on a ajouter
+    // vide la commande et la précommande
+    //remet la vue a sont état de départ
     public void Effacer(){
         commande.removeAllElements();
         precommande = new Produit("","",0,0);
         updateCommande();
+        indicePrixCalorie.setText("Aucun Produit selectionné");
+        resetImage();
         choixTaille.clearCheck();
     }
 
 
-
+    // Quand on a finis de selectionner les produits et que l'on veut commander
+    // une alerte est créer et apparait
+    // vide la commande et la précommande
+    //remet la vue a sont état de départ
     public void Commander(){
         AlertDialog alert = commadeFini.create();
         alert.show();
         commande.removeAllElements();
         precommande = new Produit("","",0,0);
         updateCommande();
+        indicePrixCalorie.setText("Aucun Produit selectionné");
+        resetImage();
+        choixTaille.clearCheck();
     }
 
+    // boutton pour ajouter a la commande qui teste dabbord si on bien une precommande valide puis l'ajoute a notre Vector de Produit commande
     public void ajoutCommande(){
-        commande.add(new Produit(precommande.noms,precommande.format,precommande.prix,precommande.calories));
+        // pour ne psa créer de bug au début si on click sur ajouter sans selectionner de boisson
+        if(precommande != null){
+        commande.add(new Produit(precommande.getNoms(),precommande.getFormat(),precommande.getPrix(),precommande.getCalories()));
         updateCommande();
+        }
     }
+
+    //Après avoir clicker sur une taille on update la precommande selon la bonne taille
     public void clickTaille(View event){
         updatepreCommande(nom);
     }
 
+    //Après avoir clicker sur une boisson on update la precommande selon la bonne boisson
     public void clickBoisson(View event){
         if(event == cafe_filtre){
             updatepreCommande("Café filtre");
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Pour retrouver la taille que on a selectionner
     public String getTaille(){
         String taille = "";
         ChipGroup choixTaille = findViewById(R.id.choixTaille);
@@ -151,22 +163,25 @@ public class MainActivity extends AppCompatActivity {
         return taille;
     }
 
+    // pour updater la commande quand on veut choisir un produit avant de commander
     public void updatepreCommande(String nouveaunom){
         nom = nouveaunom;
         String nomComplet = nom + getTaille();
+        // A partir du nom complet on peut trouver de quelle produit il s,agit dans la notre Hashtable
         precommande = liste.recupererProduit(nomComplet);
         //String cout = String.valueOf(precommande.prix);
-        String cout = String.format("%.2f", precommande.prix);
-        String calorie = String.valueOf(precommande.calories);
+        String cout = String.format("%.2f", precommande.getPrix());
+        String calorie = String.valueOf(precommande.getCalories());
         indicePrixCalorie.setText( nomComplet + " : " + calorie + " calorie et coûte : " + cout + " $");
 
 
     }
 
+    // pour update le Total de la commande une fosi que a pesée sur ajouter
     public void updateCommande(){
         double coutTotal = 0;
         for(int i=0; i<commande.size();i++){
-            coutTotal += commande.get(i).prix;
+            coutTotal += commande.get(i).getPrix();
         }
         coutTotal = coutTotal*1.15;
         String formatted = String.format("%.2f", coutTotal);
@@ -178,8 +193,11 @@ public class MainActivity extends AppCompatActivity {
         nouvelleImage();
     }
 
+    // Méthode pour ajouté des petite imageView de café
+
     public void nouvelleImage(){
 
+        boolean valid = true;
         ImageView imageView = new ImageView(this);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -191,38 +209,38 @@ public class MainActivity extends AppCompatActivity {
         layoutParams.gravity= Gravity.CENTER;
 
         imageView.setLayoutParams(layoutParams);
-        //imageView.setImageResource(R.drawable.latte);
-        // Facon paresseuse de choisisr la bonne image ici
-        if(precommande.noms == "Café"){
+        // On chosi quelle est la bonne image selon le nom du dernier article (précommande pourrait aussi être lastIndexOf)
+        if(precommande.getNoms() == "Café"){
             imageView.setImageResource(R.drawable.cafe_filtre);
         }
-        else if(precommande.noms == "Americano"){
+        else if(precommande.getNoms() == "Americano"){
             imageView.setImageResource(R.drawable.americano);
         }
-        else if(precommande.noms == "Café glacé") {
+        else if(precommande.getNoms() == "Café glacé") {
             imageView.setImageResource(R.drawable.cafe_glace);
         }
-        else if(precommande.noms == "Latté") {
+        else if(precommande.getNoms() == "Latté") {
             imageView.setImageResource(R.drawable.latte);
         }
         else{
-            resetImage();
+            //Pour que on ne créer pas d'image lorsque la selection est invalide
+            valid = false;
         }
-
-        imageView.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        MiniImage.addView(imageView);
+        if(valid) {
+            imageView.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
+            MiniImage.addView(imageView);
+        }
 
     }
 
+    // Méthode pour enlever les ImageView quand on clicque sur Effacer ou Commander
     public void resetImage(){
         MiniImage.removeAllViews();
     }
 
 
-
-
-    //Méthode binding des LinearLayout au bon élément de la vue et ajout des méthode Onlick
-    public void LinearSetup() {
+    //Méthode de binding des LinearLayout au bon élément de la vue et binding des méthode Onlick
+    public void linearSetup() {
         cafe_filtre = findViewById(R.id.cafe_filtre);
         americano = findViewById(R.id.americano);
         cafe_glace = findViewById(R.id.cafe_glace);
@@ -235,7 +253,9 @@ public class MainActivity extends AppCompatActivity {
         latte.setOnClickListener(ec);
     }
 
-    public void RadioSetup() {
+    //Méthode de binding des chip de la vue et binding des méthode Onlick
+
+    public void chipSetup() {
         choixTaille = findViewById(R.id.choixTaille);
 
         chipSmall = findViewById(R.id.chipSmall);
@@ -245,6 +265,17 @@ public class MainActivity extends AppCompatActivity {
         chipSmall.setOnClickListener(ec);
         chipMedium.setOnClickListener(ec);
         chipLarge.setOnClickListener(ec);
+    }
+
+    public void btnSetup(){
+        btnAjouter = findViewById(R.id.btnAjouter);
+        btnCommander = findViewById(R.id.btnCommander);
+        btnEffacer = findViewById(R.id.btnEffacer);
+
+        btnAjouter.setOnClickListener(ec);
+        btnCommander.setOnClickListener(ec);
+        btnEffacer.setOnClickListener(ec);
+
     }
 
 

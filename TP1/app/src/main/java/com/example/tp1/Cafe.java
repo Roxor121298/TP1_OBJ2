@@ -8,16 +8,19 @@ public class Cafe extends Produit {
 
     Cafe(String n, String f, double p, int c) {
         super(n,f,p,c);
-        this.noms = nomscafe;
-        this.calories = calorieCafe;
+        this.setNoms(nomscafe);
 
-        if (this.format.equals("Moyen")){
-        this.prix = (prixCafe/3)*5;
-        this.calories = 7;
+        if (this.getFormat().equals("Moyen")){
+        this.setPrix((prixCafe/3)*5);
+        this.setCalories(7);
         }
-        else if (this.format.equals("Grand")){
-            this.prix = prixCafe*2.2;
-            this.calories = 10;
+        else if (this.getFormat().equals("Grand")){
+            this.setPrix(prixCafe*2.2);
+            this.setCalories(10);
+        }
+        else {
+            this.setPrix(prixCafe);
+            this.setCalories(calorieCafe);
         }
     }
 }

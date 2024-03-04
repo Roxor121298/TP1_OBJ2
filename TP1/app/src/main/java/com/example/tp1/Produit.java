@@ -3,10 +3,10 @@ package com.example.tp1;
 import java.util.Vector;
 
 public class Produit {
-    String noms;
-    String format;
-    double prix;
-    int calories;
+    private String noms;
+    private String format;
+    private double prix;
+    private int calories;
 
     Produit(String n, String f, double p, int c){
         this.noms = n;
@@ -31,6 +31,9 @@ public class Produit {
     public int getCalories() {
         return calories;
     }
+
+    public void setNoms(String noms) {this.noms = noms;}
+    public void setFormat(String format) {this.format = format;}
 
     public void setPrix(double prix) {
         this.prix = prix;
