@@ -15,8 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="250dp"
-        android:layout_marginBottom="521dp"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="510dp"
         android:orientation="vertical"
         android:clickable="true"
         android:focusable="true"
@@ -25,8 +25,8 @@
         <!-- Replace with your coffee image -->
 
         <ImageView
-            android:layout_width="93dp"
-            android:layout_height="93dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_weight="1"
             android:src="@drawable/cafe_filtre" />
 
@@ -53,8 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="185dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginBottom="521dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="510dp"
         android:orientation="vertical"
         android:clickable="true"
         android:focusable="true"
@@ -63,8 +63,8 @@
         <!-- Replace with your coffee image -->
 
         <ImageView
-            android:layout_width="93dp"
-            android:layout_height="93dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_weight="1"
             android:src="@drawable/americano" />
 
@@ -91,7 +91,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="250dp"
-        android:layout_marginEnd="250dp"
+        android:layout_marginEnd="235dp"
         android:layout_marginBottom="250dp"
         android:orientation="vertical"
         android:clickable="true"
@@ -101,8 +101,8 @@
         <!-- Replace with your coffee image -->
 
         <ImageView
-            android:layout_width="93dp"
-            android:layout_height="93dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_weight="1"
             android:src="@drawable/cafe_glace" />
 
@@ -112,7 +112,7 @@
             android:layout_weight="2"
             android:gravity="center_vertical"
             android:padding="8dp"
-            android:text="Café galcé"
+            android:text="Café glacé"
             android:textSize="18sp" />
 
         <!-- Add other coffee details like calories and price here -->
@@ -129,7 +129,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="185dp"
         android:layout_marginTop="250dp"
-        android:layout_marginEnd="85dp"
+        android:layout_marginEnd="65dp"
         android:layout_marginBottom="250dp"
         android:orientation="vertical"
         android:clickable="true"
@@ -139,15 +139,15 @@
         <!-- Replace with your coffee image -->
 
         <ImageView
-            android:layout_width="93dp"
-            android:layout_height="93dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_weight="1"
             android:src="@drawable/latte" />
 
         <TextView
             android:layout_width="127dp"
-            android:layout_height="67dp"
-            android:layout_weight="2"
+            android:layout_height="45dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="8dp"
             android:text="Latté"
@@ -162,12 +162,16 @@
     <LinearLayout
         android:id="@+id/Order"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="252dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="14dp"
         android:background="#FFFFFFFF"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:padding="8dp">
 
 
@@ -219,7 +223,6 @@
             android:id="@+id/btnAjouter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            <!-- android:enabled="false" -->
             android:layout_marginBottom="8dp"
             android:text="AJOUTER" />
 
